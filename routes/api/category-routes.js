@@ -62,11 +62,34 @@ router.post('/', async (req, res) => {
   };
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   // taking in an id as a parameter and also receiving a req.body
   // sequelize update
+  try {
+    const updateCategory = await Category.update({
+      category_name: req.body.categoryName
+    },
+    {
+      where: {
+        id: req.params.id
+      }
+    });
 
+    const categoriesID = await Category.findByPk(req.params.id, {
+      include: [{ model: Product }]
+    });
+
+    if (!categoriesID) {
+      res.status(200).json({ message: 'No categories found'});
+      return;
+    };
+
+    res.status(200).json(updateCategory);
+    console.log("Updated category!")
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.delete('/:id', (req, res) => {
@@ -74,7 +97,7 @@ router.delete('/:id', (req, res) => {
   // DESTROY
   // destroying based off the req.params.id
   // res.json to let the server know it's gone
-  
+
 });
 
 module.exports = router;
