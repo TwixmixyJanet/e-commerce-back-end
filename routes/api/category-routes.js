@@ -8,16 +8,16 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Products
   // -> from model
   // somehow send it back to the user
-  // 
   try {
     const categoriesAll = await Category.findAll({
       include: [{ model: Product }]
     });
 
     if (!categoriesAll) {
-      res.status(200).json({ message: 'No categories found'});
+      res.status(200).json({ message: 'Could not find any categories'});
       return;
     };
+    res.status(200).json(categoriesAll);
   } catch (err) {
     res.status(500).json(err);
   };
