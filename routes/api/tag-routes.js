@@ -30,10 +30,14 @@ router.get('/:id', async (req, res) => {
     });
 
     if (!tagID) {
-      res.status
-    }
-  } catch (err) {
+      res.status(200).json({ message: 'Could not find that tag'});
+      return;
+    };
 
+    res.status(200).json(tagID);
+
+  } catch (err) {
+    res.status(500).json(err)
   }
 });
 
