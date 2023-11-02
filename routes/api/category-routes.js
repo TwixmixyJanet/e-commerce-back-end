@@ -5,9 +5,6 @@ const { Category, Product } = require('../../models');
 
 router.get('/', async (req, res) => {
   // find all categories
-  // be sure to include its associated Products
-  // -> from model
-  // somehow send it back to the user
   try {
     const categoriesAll = await Category.findAll({
       include: [{ model: Product }]
@@ -72,9 +69,6 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
-  // DESTROY
-  // destroying based off the req.params.id
-  // res.json to let the server know it's gone
   try {
     const destroyCategory = await Category.destroy({
       where: {
