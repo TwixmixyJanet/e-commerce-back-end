@@ -18,8 +18,8 @@ router.get('/', async (req, res) => {
 
     res.json(productsAll);
 
-  } catch {
-    
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
