@@ -12,7 +12,6 @@ router.get('/', async (req, res) => {
     const categoriesAll = await Category.findAll({
       include: [{ model: Product }]
     });
-
     if (!categoriesAll) {
       res.status(200).json({ message: 'Could not find any categories'});
       return;
@@ -25,20 +24,15 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   // find one category by its `id` value
-  // be sure to include its associated Products
-  // specify by ID
-  // get one category
-  // some req.params.nonsense
-  // send it back to the user
   try {
     const categoriesID = await Category.findByPk(req.params.id, {
       include: [{ model: Product }]
     });
-
     if (!categoriesID) {
       res.status(200).json({ message: 'Could not find that category'});
       return;
     };
+    res.status(200).json(categoriesID);
   } catch (err) {
     res.status(500).json(err);
   };
@@ -46,9 +40,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   // create a new category
-  // get the body and get the contents and insert into sequelize
-  // category(DOT)create 
-  // whatever we created we can return it back off the res.json
   try {
     const newCategory = await Category.create({
       category_name: req.body.categoryName
