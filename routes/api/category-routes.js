@@ -42,13 +42,8 @@ router.post('/', async (req, res) => {
   // create a new category
   try {
     const newCategory = await Category.create(req.body);
-    //   {
-    //   category_name: req.body.categoryName
-    // });
-
     res.status(200).json(newCategory);
     console.log('Added new category!');
-
   } catch (err) {
     res.status(500).json(err);
   };
@@ -56,27 +51,18 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
-  // taking in an id as a parameter and also receiving a req.body
-  // sequelize update
   try {
     const updateCategory = await Category.update({
       category_name: req.body.categoryName
     },
-    {
-      where: {
-        id: req.params.id
-      }
-    });
-
+    { where: { id: req.params.id } });
     const categoriesID = await Category.findByPk(req.params.id, {
       include: [{ model: Product }]
     });
-
     if (!categoriesID) {
       res.status(200).json({ message: 'No categories found' });
       return;
     };
-
     res.status(200).json(updateCategory);
     console.log("Updated category!")
   } catch (err) {
