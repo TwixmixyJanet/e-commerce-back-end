@@ -7,6 +7,11 @@ class ProductTag extends Model {}
 ProductTag.init(
   {
     // define columns
+    // a combinator/join table for many to many
+    // id primary key
+    // product id foreigh key
+    // tag id foreign key
+
   },
   {
     sequelize,
