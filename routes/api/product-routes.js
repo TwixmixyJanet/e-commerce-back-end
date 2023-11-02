@@ -122,6 +122,23 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  try {
+    const destroyCategory = await Category.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+
+    if (!destroyCategory) {
+      res.status(200).json({ message: 'No categories found' });
+      return;
+    };
+
+    res.status(200).json(destroyCategory);
+    console.log('This category has been destroyed!')
+  } catch {
+    res.status(500).json(err);
+  };
 });
 
 module.exports = router;
