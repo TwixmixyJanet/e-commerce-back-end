@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     });
 
     if (!productsAll) {
-      res.status(200).json({ message: 'Could not find that product'});
+      res.status(200).json({ message: 'Could not find any products'});
       return;
     }
 
@@ -24,9 +24,23 @@ router.get('/', async (req, res) => {
 });
 
 // get one product
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  try {
+    const productID = await Product.findByPk(req.params.id, {
+      include: [{ model: Category }, {model: Tag }]
+    });
+
+    if (!productID) {
+      res.status(200).json({ message: 'Could not find that product'});
+      return;
+    }
+
+    res.status(200).json(productID);
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // create new product
