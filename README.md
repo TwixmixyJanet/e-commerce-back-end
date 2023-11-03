@@ -5,9 +5,13 @@
 | Technology Used    | Resource URL |
 | --------  | ------- |
 | NodeJS      | https://nodejs.org/en |
-| Inquirer      | https://www.npmjs.com/package/inquirer |
+| ExpressJS      | https://expressjs.com/ |
+| dotenv      | https://www.npmjs.com/package/dotenv |
 | MySQL      | https://www.mysql.com/ |
 | mysql2      | https://www.npmjs.com/package/mysql2 |
+| Sequelize  | https://www.npmjs.com/package/sequelize |
+| Insomnia | https://insomnia.rest/ |
+| Sequel Ace | https://sequel-ace.com/ |
 | Screencastify | https://www.screencastify.com/ |
 | JavaScript | https://developer.mozilla.org/en-US/docs/Web/JavaScript |
 | Git       | https://git-scm.com/ |
@@ -23,10 +27,10 @@
 * [License](#license)
 
 ## Description:
-This employee tracker application acts as a content management system that is run through NodeJS CLI.<br />
+This project is the backend of an e-commerse database.<br />
 <br />
 
-#### How to use this app:
+### How to use this app:
 
 * Recommended Requirements: 
   * Node.JS
@@ -36,15 +40,23 @@ This employee tracker application acts as a content management system that is ru
   * Clone the repo to your device 
   * Initiate NPM 
   * Install all dependencies
-  * IMPORTANT: Use MySQL to SOURCE schema.sql and seeds.sql
-* Open Integrated Terminal (CLI) 
-* type "npm start" 
-* Follow the question prompts to make necessary updates
-  * View Departments, Roles, and Employees
-  * View manager and budget reports
-  * Add Department, Role, and Employee
-  * Delete Employee, Role, and Department
-* To end the program select "Quit" at the bottom of the main menu
+  * Use MySQL to SOURCE schema.sql
+  * Use the terminal to run 'node seeds/index.js'
+* Use Integrated Terminal (CLI) 
+  * type "npm start" 
+* Open Insomnia app
+  * Run GET /api for /categories, /products/ and /tags
+  * Run GET specific :id /api for /categories, /products/ and /tags
+  * Run POST /api for /categories, /products/ and /tags
+    * {"name":"value"}
+  * Run PUT specific :id /api for /categories, /products/ and /tags
+    * {
+        "name":"value",
+        "decimal":"22.22",
+        "number":"18",
+        "forgeinkey_id":"4"
+      }
+  * Run DELETE specific :id /api for /categories, /products/ and /tags
 
 ### User Story
 
@@ -72,34 +84,32 @@ THEN I am able to successfully create, update, and delete data in my database
 
 ### Lessons Learned
 
-#### 1. mysql2 -> connection
-For this project it required a mysql server connection. This was accomplished through using the mysql2 NPM. The connection was essential in sending queries to the SQL database. Because of this need it was used prolifically throughout the application. Here are a few examples.
+#### 1. .env file
+Using dotenv NPM and utilizing the .env file (while of course adding it to our gitignore) allows us to store our secure login information without sharing it in the repository. As the projects grow this is a crucual security measure to implement.
 <br />
 ![lesson 1](assets/img/lesson1.png)
 ![lesson 1](assets/img/lesson1b.png)
-![lesson 1](assets/img/lesson1c.png)
-![lesson 1](assets/img/lesson1d.png)
-![lesson 1](assets/img/lesson1e.png)
 
-#### 2. SQL Reports
-Building reports with SQL is super powerful, but also very difficult. This required a lot of research to determine how to best layout this information. For all of the view (department, role, employee), I combined into one action and used an if statement to determine what would display.
+#### 2. API Routes
+Expanding on API Routes to navigate the database. This was the major task for this project was being able to create and execute the GET, POST, PUT, and DELETE routes. More specifically, the SQL database.
 <br />
 ![lesson 2](assets/img/lesson2.png)
 ![lesson 2](assets/img/lesson2b.png)
 
-#### 3. Insert queries with placeholders
-The question mark (?) and other placeholders can be used to insert values into the db using parameterized queries. This helps to prevent bad data injection attacks and makes the code more reusable.
+#### 3. JavaScript seeds
+Instead of running schema and seed files through the MySQL shell, we learned to execute JavaScript files to do this work. This is done through Sequelize methods.
 <br />
 ![lesson 3](assets/img/lesson3.png)
+![lesson 3](assets/img/lesson3b.png)
 
-#### 4. Quering data to push it
-To keep the content management system live and reactive it required being able to pull on the data already in the system, so that we could then push the current available options to the prompts when needed. This was done through a query connection and then for each object item they were pushed to a variable, which then was used to display the questino options. See the example below.
+#### 4. Sequelize -> Models
+Using Sequelize allows us to do SQL type actions through methods. Instead of us writing long and potentially confusing SELECT statements, we can use this package manager.
 <br />
 ![lesson 4](assets/img/lesson4.png)
 ![lesson 4](assets/img/lesson4b.png)
 
 #### Synopsis
-This project was difficult. It required me reviewing all of the code drills and lessons to determine how to accomplish that. Even with that I still had to do research to figure out how things worked and needed to work. I did end up having fun adding a couple aspects like figlet and chalk and cTables to improve the user experience.
+We were given a lot of starter code for this project, so the main aspects we had to complete we listed above in the lessons learned.
 
 ## Installation
 
@@ -113,7 +123,7 @@ This project was difficult. It required me reviewing all of the code drills and 
 
 ## Usage
 
-This is a content management app for employee tracking. If you would like to use this app follow the installation steps and curate it to your needs. If you would like to use this app, follow the steps under the description above and click the link at the top of this page.
+This is an ecommerce backend project. If you would like to use this app follow the installation steps and curate it to your needs. If you would like to use this app, follow the steps under the description 'How to' above and click the link at the top of this page.
 
 ## License
 
